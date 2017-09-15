@@ -3,10 +3,10 @@ from flask send_file, current_app
 import xlsxwriter
 
 def router_function():
-  data = userCompletionreportService.userCompletionReport5(learning_center_id, grade)
-  file_name = grade + str(grade)
-  file_path = create_excel_file(file_name, data)
-  return send_file(file_path)
+    data = ""
+    file_name = ""
+    file_path = create_excel_file(file_name, data)
+    return send_file(file_path)
 
 
 def create_excel_file(file_name, data):
