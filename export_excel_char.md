@@ -97,3 +97,42 @@ def create_excel_file(file_name, data):
     return file_path
 
 ```
+
+Client
+
+```
+$scope.exportUserProgressData = function () {
+            $scope.showWait();
+            var params = $scope.getQueryParameter();
+            $http({
+                url: 'mathjoy/api/v1.0/exportUserProgressData',
+                method: 'POST',
+                responseType: 'arraybuffer',
+                data: params,
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            }).success(function (response) {
+                $scope.hideWait();
+                var blob = new Blob([response], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                $scope.saveAs(blob, 'user_progress' + '.xlsx');
+            }).error(function () {
+                $scope.hideWait();
+                //Some error log
+            });
+        };
+
+
+ $scope.saveAs = function (blob, fileName) {
+            if (window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, fileName);
+            } else {
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+            }
+        }
+```
