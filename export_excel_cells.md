@@ -68,3 +68,7 @@ $scope.exportUserProgressData = function () {
             }
         }
 ```
+Add style
+```
+format = workbook.add_format({'bold': True, 'font_color': 'red'})
+worksheet.write(rowIndex, 0, row["user_name"], format)
